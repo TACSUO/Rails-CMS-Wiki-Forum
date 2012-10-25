@@ -102,6 +102,8 @@ RailsCMSWikiForum::Application.routes.draw do
         post :upload_handler
         post :make_admin
         post :unmake_admin
+        post :follow_wiki
+        post :stop_follow_wiki
       end
   end
 

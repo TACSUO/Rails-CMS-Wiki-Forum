@@ -13,7 +13,7 @@ class WikiComment < ActiveRecord::Base
   attr_accessor :title
 
   before_save :set_wiki_id
-
+  
   def on_or_about_wiki_page
     unless wiki_page_id or about_wiki_page_id
       errors.add(:base, "must be made on a wiki page or about a wiki page")
@@ -35,7 +35,7 @@ class WikiComment < ActiveRecord::Base
         end
       end
     end
-
+    
     # get digest by either 'day' or 'week'
     def get_digest(wiki, to_group_by = 'day')
       to_group_by = to_group_by.to_sym

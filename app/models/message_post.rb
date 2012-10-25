@@ -80,17 +80,17 @@ class MessagePost < ActiveRecord::Base
   
   def posts_with_followers
      posts = self.child_posts.find :all, :conditions=>'to_user_id = 1', :include => :user
-   if(self.to_user_id)
+   if(self.to_user_id == 1)
       posts << self
    end  
    return posts
   end
   
   def followers
-   posts = self.posts_with_followers
+   followingposts = self.posts_with_followers
    unique_followers = []
    unique_posts = []
-   posts.each do |comment|
+   followingposts.each do |comment|
     unless unique_posts.find{|c| c.user_id == comment.user_id}
       unique_posts << comment
       unique_followers << comment.user

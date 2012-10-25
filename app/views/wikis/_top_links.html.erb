@@ -1,23 +1,36 @@
 <div class="wiki_top_links">
-  <form id="wiki_search" action="<%= search_wiki_wiki_pages_path(@wiki) %>">
-    <% if @wiki_page %>
-      <%= link_to_edit_wiki_page(@wiki_page) %> &nbsp;
-      <%= link_to_delete_wiki_page(@wiki_page) %> &nbsp;
-    <% end %>
-
-    <%= link_to_new_wiki_page(@wiki, :text => 'new') %> &nbsp;
-    <%= link_to_wiki_comments(@wiki) %> &nbsp;
-
-    <input name="name" id="name" size="6" value="search"
-           onclick="if ( $('#name')[0].value == 'search') $('#name')[0].value = '';"/>
-    <input type="submit" value="Go"/>
-  </form>
-  <% if @wiki_page %>
-    <em class="tiny_text">page last updated: <%= @wiki_page.updated_at.strftime "%m/%d/%y"  %></em>
-    (<%= link_to_wiki_page_history(@wiki_page) %>)
-  <% end %>
-
-  <% if @comments %>
-    <%= link_to_wiki_feeds %>
-  <% end %>
+	<form id="wiki_search" action="<%= search_wiki_wiki_pages_path(@wiki) %>">
+	<% if @wiki_page %>
+	  <%= link_to_edit_wiki_page(@wiki_page) %> &nbsp;
+	  <%= link_to_delete_wiki_page(@wiki_page) %> &nbsp;
+	<% end %>
+	
+	<%= link_to_new_wiki_page(@wiki, :text => 'new') %> &nbsp;
+	<%= link_to_wiki_comments(@wiki) %> &nbsp;
+  
+		<input name="name" id="name" size="6" value="search"
+	       onclick="if ( $('#name')[0].value == 'search') $('#name')[0].value = '';"/>
+		<input type="submit" value="Go"/>
+	</form>
+	
+	<%= form_tag follow_wiki_user_path(@current_user) do %>
+  		 <%= @current_user.following_wiki_ids.include?(@wiki.id) ?
+  		     'disable email updates?' : 'enable email updates?' 
+  		  %>
+  		 <%= check_box_tag "user[following_wiki_ids]", @current_user.following_wiki_ids.include?(@wiki.id) ? 1 : 0, 
+  		     @current_user.following_wiki_ids.include?(@wiki.id) %>
+  		 <%= hidden_field_tag "user[wiki]", @wiki.id %>
+  		 <%= submit_tag "save" %>
+	<% end %>
+	 
+	<% if @wiki_page %>
+		<em class="tiny_text">page last updated: <%= @wiki_page.updated_at.strftime "%m/%d/%y"  %></em>
+		(<%= link_to_wiki_page_history(@wiki_page) %>)
+	<% end %>
+	
+	  
+	<% if @comments %>
+		<%= link_to_wiki_feeds %>
+	<% end %>
+  
 </div>

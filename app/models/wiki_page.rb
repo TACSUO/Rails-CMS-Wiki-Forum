@@ -19,6 +19,8 @@ class WikiPage < ActiveRecord::Base
 
   acts_as_stripped :title
   
+
+  
 #  def validate
 #    if id and WikiPage.count( :conditions => ["title = ? AND id != ?", title, id] ) > 0
 #      errors.add :title, "has been taken (<a href=\"/wiki/#{url_title}/\">#{title}</a>)"
@@ -28,6 +30,7 @@ class WikiPage < ActiveRecord::Base
 #  end
   
   after_save :save_tags
+  
   
   acts_as_versioned do
     include ActionView::Helpers::UrlHelper
@@ -48,6 +51,7 @@ class WikiPage < ActiveRecord::Base
     end
   end
   
+   
   class << self
     def wiki_link_to(title, wiki_id)
       wp = find_by_title title

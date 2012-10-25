@@ -1,0 +1,12 @@
+
+A new comment by <%= @follower%>
+<br><br>
+Wiki: <%= @link %>
+<br><br>
+--------
+<%= @body %>
+--------
+<br><br>
+This message was sent to you because you signed up to receive email updates for new comments to <%=@wiki%>.
+To stop receiving emails go to the <%= link_to('post', @link) %> and uncheck the 'enable updates' button at the top of the page.
+<br><br>

@@ -3,6 +3,7 @@
 # a SiteSetting can be used to set up those fields
 
 class User < ActiveRecord::Base
+  
   validates_presence_of :login, :email
 
   attr_protected :is_admin
@@ -11,15 +12,28 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :user_groups
   before_create :make_admin_if_first_user
   before_save :to_i_group_ids
-
+  
   serialize :user_defined_fields
   serialize :requested_user_group_ids, Array
+  serialize :following_wiki_ids, Array
 
   acts_as_authentic
 
   after_initialize :blank_fields
   
   class << self
+    
+    def find_wiki_followers(wiki)
+      users = self.find(:all)
+      followers = []
+      users.each do |user|
+       if(user.following_wiki_ids.include?(wiki))  
+          followers << user
+       end  
+      end  
+      return followers
+    end
+    
     def find_admins
       find :all, :conditions => { :is_admin => true }
     end
@@ -37,6 +51,7 @@ class User < ActiveRecord::Base
   def blank_fields
     self.user_defined_fields ||= {}
     self.requested_user_group_ids ||= []
+    self.following_wiki_ids ||= []
   end
 
   # TODO define this
@@ -89,9 +104,6 @@ class User < ActiveRecord::Base
     @forums ||=  Forum.find(user_groups.map { |g| g.forums.keys }.flatten.uniq)
   end
   
-  def following_posts
-   return self.message_posts.find :all, :conditions=>'to_user_id = 1'
-  end
   
   def deliver_password_reset_instructions!
     # authlogic provides this:
@@ -128,6 +140,7 @@ class User < ActiveRecord::Base
   def to_i_group_ids
     self.requested_user_group_ids = self.requested_user_group_ids.map(&:to_i)
   end
+  
 end
 
 

@@ -55,4 +55,17 @@ public
     @link       =   forum_message_post_url(@forum, @thread)
   end
   
+  def wiki_follower(wiki_page, comment, follower)
+    subject "[eFrog - #{wiki_page.title.truncate(50)}]"
+    recipients follower.email
+    from     SiteSetting.read_setting('site email') || 'root'
+    sent_on    Time.now
+    
+    @follower   =   follower.full_name
+    @wiki       =   wiki_page.title
+    @body       =   ActionController::Base.helpers.sanitize(comment.body)
+    @link       =   wiki_wiki_page_url(wiki_page.wiki, wiki_page)
+    
+  end
+  
 end

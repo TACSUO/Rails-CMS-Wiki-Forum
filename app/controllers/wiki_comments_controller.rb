@@ -1,6 +1,6 @@
 class WikiCommentsController < ApplicationController
   before_filter :get_wiki
-  before_filter :require_wiki_read_access, :only => [:create]
+  before_filter :require_wiki_read_access
 
   def index
     @comments = @wiki.wiki_comments.paginate :page => params[:page], :include => :user, :order => "created_at DESC"
@@ -43,6 +43,12 @@ class WikiCommentsController < ApplicationController
     wiki_comment.user = current_user
     @wiki_page = wiki_comment.wiki_page
     if wiki_comment.save
+      users = User.find_wiki_followers(@wiki.id)
+      users.each do |user|
+        unless current_user == user
+          Notifier.wiki_follower(@wiki_page, wiki_comment, user).deliver
+        end
+      end
       respond_to do |format|
         format.html do
           flash[:notice] = "Comment posted."

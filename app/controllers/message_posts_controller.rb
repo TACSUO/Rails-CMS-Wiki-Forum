@@ -114,7 +114,7 @@ class MessagePostsController < ApplicationController
       end
     end
     respond_to do |format|
-      flash[:notice] = "Stopped following Post '#{@message_post.subject}'."
+      flash[:notice] = "Disabled Email Updates."
       format.html { redirect_to forum_message_post_url(@forum, @message_post.thread) }
       format.xml  { head :ok }
     end

@@ -6,7 +6,16 @@
   <%= @message_post.subject if @message_post %>
   
 </h1>
-
+	 <% for user in @followers -%>
+        <%if user == current_user%>
+        <%= form_tag stop_following_forum_message_post_path(@forum, @message_post) do %>
+  	     	   disable email updates? <%= check_box_tag "to_user_id", 1,1 %>
+  		      <%= submit_tag "save" %>
+	    <% end %>
+	
+        <%end%></li>
+  <% end -%>
+  
 <p class="small_text" style="text-align: right;">
   <%= link_to_rss feed_forum_message_post_url(@forum, @message_post, current_user.single_access_token, :atom) %>
 </p>
@@ -45,12 +54,4 @@
   <%= link_to 'delete this message thread', forum_message_post_path(@forum, @message_post), :method => :delete,
               :confirm => 'Are you sure you want to delete this thread and all the messages in it?' %>
 <% end %>
-<br />
-
-<h3>Following this Thread</h3>
-<ul>
- <% for user in @followers -%>
-    <li><%= user.full_name%> <%if user == current_user%>(<%= link_to 'stop following', stop_following_forum_message_post_path(@forum, @message_post), :method => :post %>)<%end%></li>
-  <% end -%>
-</ul>
 

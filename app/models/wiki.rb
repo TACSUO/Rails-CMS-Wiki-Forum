@@ -6,7 +6,21 @@ class Wiki < ActiveRecord::Base
 
   default_scope order('position, name')
   after_destroy :fix_group_access
+  
+  def followers
+   posts = self.posts_with_followers
+   unique_followers = []
+   unique_posts = []
+   posts.each do |comment|
+    unless unique_posts.find{|c| c.user_id == comment.user_id}
+      unique_posts << comment
+      unique_followers << comment.user
+    end
+  end
 
+   return unique_followers
+  end
+  
   private
   def fix_group_access
     UserGroup.all_fix_wiki_access
