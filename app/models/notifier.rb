@@ -55,16 +55,16 @@ public
     @link       =   forum_message_post_url(@forum, @thread)
   end
   
-  def wiki_follower(wiki_page, comment, follower)
+  def wiki_email(wiki_page, comment, follower)
     subject "[eFrog - #{wiki_page.title.truncate(50)}]"
     recipients follower.email
     from     SiteSetting.read_setting('site email') || 'root'
     sent_on    Time.now
+    content_type "text/html"
     
-    @follower   =   follower.full_name
-    @wiki       =   wiki_page.title
-    @body       =   ActionController::Base.helpers.sanitize(comment.body)
-    @link       =   wiki_wiki_page_url(wiki_page.wiki, wiki_page)
+    @body       =   "New comment by: "+follower.full_name+" on " + "<br>-----<br>" + ActionController::Base.helpers.sanitize(comment.body) + "<br>-----<br> Wiki Page: " + wiki_wiki_page_url(wiki_page.wiki, wiki_page) +
+                    "<br><br>This message was sent to you because you signed up to receive email updates for new comments to " + wiki_page.title + 
+                    "To stop receiving emails go to the wiki page and click on the disable email updates button at the top of the page. <br><br> This is an automated email. Do not respond."
     
   end
   

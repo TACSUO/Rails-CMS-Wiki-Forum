@@ -46,7 +46,7 @@ class WikiCommentsController < ApplicationController
       users = User.find_wiki_followers(@wiki.id)
       users.each do |user|
         unless current_user == user
-          Notifier.wiki_follower(@wiki_page, wiki_comment, user).deliver
+          Notifier.wiki_email(@wiki_page, wiki_comment, user).deliver
         end
       end
       respond_to do |format|
