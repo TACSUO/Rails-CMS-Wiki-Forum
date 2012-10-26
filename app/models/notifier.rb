@@ -47,7 +47,7 @@ public
     content_type "text/html"
     sent_on    Time.now
     
-    @follower   =   follower.full_name
+    @follower   =   post.username.full_name
     @thread     =   post.thread
     @post_title =   ActionController::Base.helpers.sanitize(post.subject)
     @post_body  =   ActionController::Base.helpers.sanitize(post.body)
@@ -62,7 +62,7 @@ public
     sent_on    Time.now
     content_type "text/html"
     
-    @body       =   "New comment by: "+follower.full_name+" on " + "<br>-----<br>" + ActionController::Base.helpers.sanitize(comment.body) + "<br>-----<br> Wiki Page: " + wiki_wiki_page_url(wiki_page.wiki, wiki_page) +
+    @body       =   "New comment by: "+comment.user.full_name+" on " + "<br>-----<br>" + ActionController::Base.helpers.sanitize(comment.body) + "<br>-----<br> Wiki Page: " + wiki_wiki_page_url(wiki_page.wiki, wiki_page) +
                     "<br><br>This message was sent to you because you signed up to receive email updates for new comments to " + wiki_page.title + 
                     "To stop receiving emails go to the wiki page and click on the disable email updates button at the top of the page. <br><br> This is an automated email. Do not respond."
     
