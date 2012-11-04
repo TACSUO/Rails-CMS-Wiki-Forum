@@ -47,7 +47,7 @@ public
     content_type "text/html"
     sent_on    Time.now
     
-    @follower   =   post.username.full_name
+    @follower   =   post.user.full_name
     @thread     =   post.thread
     @post_title =   ActionController::Base.helpers.sanitize(post.subject)
     @post_body  =   ActionController::Base.helpers.sanitize(post.body)
