@@ -109,7 +109,7 @@ class WikiPage < ActiveRecord::Base
   def save_tags
     self.wiki_tags.clear
     wiki_tags_string.split(",").each do |tag_name|
-      tag_name.strip!
+      tag_name =  tag_name.strip.gsub("/", "-").gsub("&", "and").gsub("?", "").gsub('.', 'DOT')
       unless tag_name.blank?
         wt = WikiTag.find(:first, :conditions => {:name => tag_name, :wiki_id => wiki.id})
         wt ||= WikiTag.create :name => tag_name, :wiki_id => wiki.id
