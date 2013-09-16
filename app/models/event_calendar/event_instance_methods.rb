@@ -61,7 +61,7 @@ module EventCalendar
     def one_day?
       return true if start_on.blank? || end_on.blank?
       start_on.day == end_on.day &&
-      start_on.month== end_on.month &&
+      start_on.month == end_on.month &&
       start_on.year == end_on.year
     end
     
@@ -70,13 +70,13 @@ module EventCalendar
     end
     
     def one_day_date
-      start_on.in_time_zone(timezone).strftime('%A, %B %d %Y')
+      start_on.in_time_zone(timezone).strftime('%A, %B %d, %Y')
     end
     
     def multi_day_date
       return one_day_date if end_on.blank?
       "#{start_on.in_time_zone(timezone).strftime('%A, %B %d')} - "+
-      "#{end_on.in_time_zone(timezone).strftime('%A, %B %d %Y')}"
+      "#{end_on.in_time_zone(timezone).strftime('%A, %B %d, %Y')}"
     end
 
     def human_display_date
