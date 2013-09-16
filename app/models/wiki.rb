@@ -5,7 +5,7 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_tags
 
   default_scope order('position, name')
-  default_scope where(:archived => true)
+  default_scope where(:archived => false)
   
   after_destroy :fix_group_access
   
