@@ -21,6 +21,19 @@ class Wiki < ActiveRecord::Base
    return unique_followers
   end
   
+  def published 
+   Wiki::find(:archived => false)  
+  end
+  
+  def archived
+    Wiki::find(:archived => true)  
+  end
+  
+  def archive
+    self.archived = true
+    self.save
+  end
+  
   private
   def fix_group_access
     UserGroup.all_fix_wiki_access
@@ -36,5 +49,6 @@ end
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  archived     :tinyint    not null, 0
 #
 

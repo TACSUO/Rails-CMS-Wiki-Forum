@@ -7,7 +7,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.xml
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.published
 
     respond_to do |format|
       format.html # index.html.erb
@@ -91,6 +91,17 @@ class WikisController < ApplicationController
   def destroy
     @wiki.destroy
 
+    respond_to do |format|
+      format.html { redirect_to(wikis_url) }
+      format.xml  { head :ok }
+    end
+  end
+
+
+  # DELETE /wikis/1
+  # DELETE /wikis/1.xml
+  def archive
+    @wiki.archive
     respond_to do |format|
       format.html { redirect_to(wikis_url) }
       format.xml  { head :ok }
