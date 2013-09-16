@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   
   serialize :user_defined_fields
   serialize :requested_user_group_ids, Array
-  serialize :following_wiki_ids, Array
+  serialize :following_wiki_ids
 
   acts_as_authentic
 
