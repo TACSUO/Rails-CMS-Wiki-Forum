@@ -22,11 +22,11 @@ class Wiki < ActiveRecord::Base
   end
   
   def published 
-   Wiki::find(:archived => false)  
+   Wiki.find(:archived => false)  
   end
   
   def archived
-    Wiki::find(:archived => true)  
+    Wiki.find(:archived => true)  
   end
   
   def archive
