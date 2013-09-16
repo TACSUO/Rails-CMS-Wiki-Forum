@@ -5,6 +5,8 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_tags
 
   default_scope order('position, name')
+  default_scope where(:archived => true)
+  
   after_destroy :fix_group_access
   
   def followers
@@ -20,15 +22,7 @@ class Wiki < ActiveRecord::Base
 
    return unique_followers
   end
-  
-  def published 
-   Wiki.find(:archived => false)  
-  end
-  
-  def archived
-    Wiki.find(:archived => true)  
-  end
-  
+    
   def archive
     self.archived = true
     self.save

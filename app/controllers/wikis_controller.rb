@@ -7,7 +7,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.xml
   def index
-    @wikis = Wiki.published
+    @wikis = Wiki.all
 
     respond_to do |format|
       format.html # index.html.erb
