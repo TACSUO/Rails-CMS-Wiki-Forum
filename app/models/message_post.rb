@@ -53,7 +53,7 @@ class MessagePost < ActiveRecord::Base
   end
 
   def poster
-    user.name
+   user ? user.name : ""
   end
 
   def forum_name
