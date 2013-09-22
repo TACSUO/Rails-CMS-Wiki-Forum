@@ -4,6 +4,7 @@ RailsCMSWikiForum::Application.routes.draw do
   resources :wikis do
     member do
       get :tagcloud
+      post :archive
     end
     collection do
       get :sort
