@@ -18,7 +18,7 @@
         <th></th>
       </tr>
 
-    <% @user_group.users.each do |user|  %>
+    <% @user_group.users.find(:all, :order => "first_name, last_name asc").each do |user|  %>
       <tr>
         <td><%= link_to user.fullname, edit_user_path(user) %> (<%= user.login %>)</td>
         <td><%= user.email %></td>
