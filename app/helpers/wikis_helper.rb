@@ -23,8 +23,8 @@ module WikisHelper
   end
   def link_to_wiki_parent(wiki)
     return '' unless current_user
-    link_body = wiki.archived ? 'Archived Wikis' : 'Wikis'
-    parent_path = wiki.archived ? archived_wikis_path : wikis_path
+    link_body = wiki.archived? ? 'Archived Wikis' : 'Wikis'
+    parent_path = wiki.archived? ? archived_wikis_path : wikis_path
     link_to link_body, parent_path
   end
   
