@@ -98,8 +98,8 @@ class WikisController < ApplicationController
   end
 
 
-  # DELETE /wikis/1
-  # DELETE /wikis/1.xml
+  # archive /wikis/1
+  # archive /wikis/1.xml
   def archive
     @wiki.archive
     respond_to do |format|
