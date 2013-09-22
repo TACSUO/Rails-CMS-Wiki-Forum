@@ -37,7 +37,23 @@ module WikisHelper
       }
     end
   end
-
+  
+  def link_to_archive_wiki(wiki, options={})
+    return '' unless current_user
+    
+    if can? :destroy, wiki
+      html_body = '<span class="ui-icon ui-icon-locked"/>'.html_safe
+      text_body = 'archive'
+      link_body = options.archive(:html) ? html_body : text_body
+      link_to link_body, wiki_path(wiki), {
+        :confirm => "Are you sure you want to archvie this wiki (#{wiki.name}) " +
+          "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
+        :method => :archive,
+        :title => "click to archive"
+      }
+    end
+  end
+    
   def link_to_wiki_comments(wiki, options={})
     if can? :read, wiki
       link_to 'chatter', wiki_wiki_comments_path(wiki)
