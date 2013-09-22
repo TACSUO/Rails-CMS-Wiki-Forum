@@ -29,6 +29,11 @@ class Wiki < ActiveRecord::Base
     self.save
   end
   
+  def unarchive
+    self.archived = false
+    self.save
+  end
+  
   private
   def fix_group_access
     UserGroup.all_fix_wiki_access

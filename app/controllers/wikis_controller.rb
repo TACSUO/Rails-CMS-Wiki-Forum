@@ -14,6 +14,18 @@ class WikisController < ApplicationController
       format.xml  { render :xml => @wikis }
     end
   end
+  
+  # GET /wikis
+  # GET /wikis.xml
+  def archived
+    @wikis = Wiki.archived
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @wikis }
+    end
+  end
+
 
   def sort
     @wikis = Wiki.order("position, name")
@@ -107,7 +119,17 @@ class WikisController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
+  
+  # unarchive /wikis/1
+  # unarchive /wikis/1.xml
+  def unarchive
+    @wiki.unarchive
+    respond_to do |format|
+      format.html { redirect_to(wikis_url) }
+      format.xml  { head :ok }
+    end
+  end
+  
 
   def tag_index
 
