@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
-  before_filter :require_admin_user, :except => [:index, :show, :tag_index, :tagcloud, :list_by_tag, :recent_comments]
-  before_filter :get_wiki, :except => [:new, :create, :index, :sort, :set_sort, :recent_comments]
+  before_filter :require_admin_user, :except => [:index, :archived, :show, :tag_index, :tagcloud, :list_by_tag, :recent_comments]
+  before_filter :get_wiki, :except => [:new, :create, :index, :archived, :sort, :set_sort, :recent_comments]
   before_filter :require_wiki_read_access, :only => [:show, :tag_index, :tagcloud, :list_by_tag]
 
 
@@ -15,8 +15,8 @@ class WikisController < ApplicationController
     end
   end
   
-  # GET /wikis
-  # GET /wikis.xml
+  # GET /wikis/archived
+  # GET /archived.xml
   def archived
     @wikis = Wiki.archived
 
