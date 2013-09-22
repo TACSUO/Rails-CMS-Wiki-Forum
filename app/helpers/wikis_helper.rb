@@ -21,6 +21,12 @@ module WikisHelper
       link_to link_body, edit_wiki_path(wiki), :title => 'click to edit'
     end
   end
+  def link_to_wiki_parent(wiki)
+    return '' unless current_user
+    link_body = wiki.archived ? 'Archived Wikis' : 'Wikis'
+    parent_path = wiki.archived ? archived_wikis_path : wikis_path
+    link_to link_body, parent_path
+  end
   
   def link_to_destroy_wiki(wiki, options={})
     return '' unless current_user
