@@ -16,7 +16,7 @@
   <br/>
 
   <strong>Grants Wiki Access:</strong><br/>
-  <% Wiki.all.each do |wiki| %>
+  <% Wiki.published.each do |wiki| %>
      <%= wiki.title %>: 
      <%= select_tag "user_group[wiki_access][#{wiki.id}]", 
             options_for_select(['none', 'write', 'read'],
