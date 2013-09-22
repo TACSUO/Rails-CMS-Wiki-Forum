@@ -5,7 +5,7 @@ RailsCMSWikiForum::Application.routes.draw do
     member do
       get :tagcloud
       post :archive
-      post :unarchive
+      post :publish
       get :archived
     end
     collection do

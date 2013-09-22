@@ -29,7 +29,7 @@ class Wiki < ActiveRecord::Base
     self.save
   end
   
-  def unarchive
+  def publish
     self.archived = false
     self.save
   end

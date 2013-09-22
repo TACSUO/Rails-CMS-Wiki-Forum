@@ -122,8 +122,8 @@ class WikisController < ApplicationController
   
   # unarchive /wikis/1
   # unarchive /wikis/1.xml
-  def unarchive
-    @wiki.unarchive
+  def publish
+    @wiki.publish
     respond_to do |format|
       format.html { redirect_to(wikis_url) }
       format.xml  { head :ok }

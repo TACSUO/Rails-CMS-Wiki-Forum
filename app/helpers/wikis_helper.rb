@@ -51,8 +51,23 @@ module WikisHelper
         :title => "click to archive"
       }
     end
-  end
+  end 
+  
+  def link_to_publish_wiki(wiki, options={})
+    return '' unless current_user
     
+    if can? :destroy, wiki
+      html_body = '<span class="ui-icon ui-icon-unlocked"/>'.html_safe
+      text_body = 'publish'
+      link_body = options.delete(:html) ? html_body : text_body
+      link_to link_body, publish_wiki_path(wiki), {
+        :confirm => "Are you sure you want to publish this wiki (#{wiki.name}) " +
+          "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
+        :title => "click to publish"
+      }
+    end
+  end
+      
   def link_to_wiki_comments(wiki, options={})
     if can? :read, wiki
       link_to 'chatter', wiki_wiki_comments_path(wiki)
