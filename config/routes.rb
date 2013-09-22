@@ -6,12 +6,12 @@ RailsCMSWikiForum::Application.routes.draw do
       get :tagcloud
       post :archive
       post :publish
-      get :archived
     end
     collection do
       get :sort
       get :recent_comments
       post :set_sort
+      get :archived
     end
     resources :wiki_pages do
       collection do
