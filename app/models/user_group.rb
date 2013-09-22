@@ -8,7 +8,7 @@ class UserGroup < ActiveRecord::Base
   # stored as an Array - list of indexes of SPECIAL_ACCESS
   serialize :special, Hash
 
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :users, :order =>"first_name last_name"
 
   before_save :strip_none_from_special
 

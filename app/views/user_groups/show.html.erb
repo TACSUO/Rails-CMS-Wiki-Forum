@@ -12,7 +12,7 @@
   <%= form_tag drop_user_user_group_path(@user_group) do %>
     <table class="nice_table">
       <tr>
-        <th>Login (Full Name)</th>
+        <th>Full Name (login)</th>
         <th>Email</th>
         <th></th>
         <th></th>
@@ -20,7 +20,7 @@
 
     <% @user_group.users.each do |user|  %>
       <tr>
-        <td><%= link_to user.login, edit_user_path(user) %> (<%= user.fullname %>)</td>
+        <td><%= link_to user.fullname, edit_user_path(user) %> (<%= user.login %>)</td>
         <td><%= user.email %></td>
         <td><%= link_to "drop from group", drop_user_user_group_path(@user_group, :user_id => user.id), :method => :post %></td>
         <td><%= check_box_tag "user_ids[]", user.id %></td>
