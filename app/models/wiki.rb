@@ -5,8 +5,9 @@ class Wiki < ActiveRecord::Base
   has_many :wiki_tags
 
   default_scope order('position, name')
-  default_scope where(:archived => false)
-  
+  named_scope :published, lambda { { :conditions => { :archived => false} } }
+  named_scope :archived, lambda { { :conditions => { :archived => true } } }
+    
   after_destroy :fix_group_access
   
   def followers
