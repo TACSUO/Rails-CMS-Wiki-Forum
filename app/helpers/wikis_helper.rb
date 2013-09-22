@@ -48,7 +48,7 @@ module WikisHelper
     return '' unless current_user
     
     if can? :destroy, wiki
-      html_body = '<span class="ui-icon ui-icon-locked"/>'.html_safe
+      html_body = '<span class="ui-icon ui-icon-unlocked"/>'.html_safe
       text_body = 'archive'
       link_body = options.delete(:html) ? html_body : text_body
       link_to link_body, archive_wiki_path(wiki), {
@@ -63,7 +63,7 @@ module WikisHelper
     return '' unless current_user
     
     if can? :destroy, wiki
-      html_body = '<span class="ui-icon ui-icon-unlocked"/>'.html_safe
+      html_body = '<span class="ui-icon ui-icon-locked"/>'.html_safe
       text_body = 'publish'
       link_body = options.delete(:html) ? html_body : text_body
       link_to link_body, publish_wiki_path(wiki), {
