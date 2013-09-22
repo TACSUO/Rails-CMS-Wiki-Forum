@@ -22,7 +22,7 @@
           <% if forum.most_recent_post -%>
             <%= link_to forum.most_recent_post.subject,
                   forum_message_post_path(forum, forum.most_recent_post) %><br/>
-            by <%= forum.most_recent_post.user.name %>
+            by <%= forum.most_recent_post.poster %>
             posted <%= post_time forum.most_recent_post.created_at %>
           <% else -%>
             <em>no messages</em>
