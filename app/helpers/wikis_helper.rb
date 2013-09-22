@@ -45,7 +45,7 @@ module WikisHelper
       html_body = '<span class="ui-icon ui-icon-locked"/>'.html_safe
       text_body = 'archive'
       link_body = options.delete(:html) ? html_body : text_body
-      link_to link_body, wiki_archive_path(wiki), {
+      link_to link_body, archive_wiki_path(wiki), {
         :confirm => "Are you sure you want to archvie this wiki (#{wiki.name}) " +
           "and it's #{pluralize wiki.wiki_pages.count, 'page'}?",
         :title => "click to archive"
