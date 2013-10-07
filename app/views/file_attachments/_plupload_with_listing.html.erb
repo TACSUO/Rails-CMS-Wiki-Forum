@@ -110,10 +110,6 @@
 <div id="file_block" class="upload_files_block" style="">
   <h4>Upload Files<hr /></h4>
 
-  <p>
-    <%= link_to_unless params[:std] == '1', "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1), :class => 'fake_button' %>
-    <%= link_to_if params[:std] == '1', "Several at once", url_for(:controller => controller_name, :action => action_name, :std => 0), :class => 'fake_button' %>
-  </p>
 
   <% if instance_variable_defined?("@#{controller_name.singularize}") %>
   <% instance = instance_variable_get("@#{controller_name.singularize}") %>
@@ -133,16 +129,10 @@
   </p>
   <% end %>
 
-  <% if params[:std] && params[:std] == '1' %>
   <div id="single_upload" style="width: 33%;">
     <%= render :partial => 'file_attachments/upload_form', :locals => {:container => instance} if defined?(instance) %>
     <%= render :partial => 'file_attachments/upload_form' unless defined?(instance) %>
   </div>
-  <% elsif params[:std].nil? || params[:std] == '0' %>
-  <div id="multiple_uploads">
-    You browser doesn't support native upload. Try Firefox 3 or Safari 4.
-  </div>
-  <% end %>
 </div>
 
 <% end %>
