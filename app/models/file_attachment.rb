@@ -23,6 +23,7 @@ class FileAttachment < ActiveRecord::Base
   before_validation :autofill_blank_name, :on => :create
   before_validation :build_filepath, :on => :create
   after_save :save_to_folder_path, :if => Proc.new{|file| file.uploaded_file.present?}
+  after_update :update_folder_path, :if => Proc.new{|file| file.uploaded_file.present?}
   before_save :normalize_attachable_fields
   before_destroy :move_file_to_trash_folder!
 
@@ -63,6 +64,10 @@ class FileAttachment < ActiveRecord::Base
       return true if file_saved?
       errors.add(:base, "The file could not be saved. Please try again or contact someone and make a note of how many files, what kind, etc.")
       false
+    end
+    def update_folder_path
+      move_file_to_trash_folder!
+      save_to_folder_path
     end
     def generate_unique_filename(dest_path=nil)
       dest_path ||= File.join ABS_ROOT_DIR, attachable_folder
