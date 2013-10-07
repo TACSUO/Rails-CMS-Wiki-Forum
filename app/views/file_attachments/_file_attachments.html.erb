@@ -49,14 +49,6 @@
   </div>
   <input type="text" id="file_attachment_name" name="file_attachment[name]" />
   <input type="text" id="file_attachment_filepath" name="file_attachment[filepath]" /> 
-  <select id="file_attachment_file_container" name="file_attachment[file_container]">
-    <%= render({
-      :partial => 'file_attachments/file_container_select',
-      :locals => {
-        :selected => "#{params[:attachable_type]}_#{params[:attachable_id]}"
-      }
-    }) %>
-  </select>
   <textarea id="file_attachment_description" style="height: 70px; width: 69%" name="file_attachment[description]"></textarea>
   <br />
   <input type="submit" value="Update" /> | <a href="#" class="cancel_dynamic_form fake_button">Cancel</a>
