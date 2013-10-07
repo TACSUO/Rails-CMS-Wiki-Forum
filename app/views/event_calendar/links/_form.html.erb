@@ -7,8 +7,8 @@ else
   method = 'put'
 end
 -%>
-<h4>Add Link <hr></h4>
 <%= semantic_form_for(@link, :html => {:class => 'dynamic', :id => 'link_dynamic_form'}, :url => submission_path, :method => 'put') do |form| %>
+  <h4>Add Link <hr></h4>
   <%= form.inputs do %>
     <input type="hidden" name="_method" value="<%= method %>">
     <%= form.input :name, :hint => "Your External Resource" %>
