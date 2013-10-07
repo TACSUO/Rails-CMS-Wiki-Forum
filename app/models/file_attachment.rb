@@ -23,7 +23,7 @@ class FileAttachment < ActiveRecord::Base
   before_validation :autofill_blank_name, :on => :create
   before_validation :build_filepath, :on => :create
   after_save :save_to_folder_path, :if => Proc.new{|file| file.uploaded_file.present?}
-  after_update :update_folder_path, :if => Proc.new{|file| file.uploaded_file.present?}
+  after_update :update_folder_path
   before_save :normalize_attachable_fields
   before_destroy :move_file_to_trash_folder!
 
