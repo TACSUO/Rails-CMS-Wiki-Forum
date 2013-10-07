@@ -48,7 +48,7 @@
     <input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token" />
   </div>
   <input type="text" id="file_attachment_name" name="file_attachment[name]" />
-  <input type="file" id="file_attachment_filepath" name="file_attachment[filepath]" /> 
+  <input type="text" id="file_attachment_filepath" name="file_attachment[filepath]" /> 
   <select id="file_attachment_file_container" name="file_attachment[file_container]">
     <%= render({
       :partial => 'file_attachments/file_container_select',
