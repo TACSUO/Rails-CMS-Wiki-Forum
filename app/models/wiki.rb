@@ -27,6 +27,7 @@ class Wiki < ActiveRecord::Base
   def archive
     self.archived = true
     self.save
+    UserGroup.set_wiki_access_readonly(self)
   end
   
   def publish

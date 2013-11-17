@@ -45,6 +45,15 @@ class UserGroup < ActiveRecord::Base
         user_group.save
       end
     end
+    
+    def set_wiki_access_readonly(wiki)
+      user_groups = find_all_with_access_to(wiki)
+      user_groups.each do |user_group|
+        user_group.set_wiki_readonly(wiki.id)
+        user_group.save
+      end
+    end
+
   end
 
   # not actually forums, but a hash of forum ids and access
@@ -79,7 +88,16 @@ class UserGroup < ActiveRecord::Base
     self.special ||= {}
     self.special[:wikis] = access_hash
   end
-
+  
+  def set_wiki_readonly(id)
+    w_ids = special[:wikis].keys
+    w_ids.each do |w_id|
+      if(id == w_id)
+        self.special[:wikis][w_id] = 'read';
+      end
+    end
+  end
+  
   def fix_wiki_access
     w_ids = special[:wikis].keys
     w_ids.each do |w_id|
@@ -87,7 +105,7 @@ class UserGroup < ActiveRecord::Base
       self.special[:wikis].delete(w_id) if w.nil?
     end
   end
-
+ 
   def fix_forum_access
     f_ids = special[:forums].keys
     f_ids.each do |f_id|
@@ -105,7 +123,7 @@ class UserGroup < ActiveRecord::Base
     wiki_id = wiki_or_wiki_id.is_a?(Wiki) ? wiki_or_wiki_id.id : wiki_or_wiki_id
     wikis[wiki_id.to_s]
   end
-
+ 
   # returns something human readable, like:
   # Forum: Some Forum 1 (Read), Forum: Some Forum 2 (Write), Wiki: Some Wiki 1 (Read), Wiki: Some Wiki 2 (Write)
   def access_string
