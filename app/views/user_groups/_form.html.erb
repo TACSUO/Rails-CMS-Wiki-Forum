@@ -17,7 +17,7 @@
 
   <strong>Grants Wiki Access:</strong><br/>
   <% Wiki.all.each do |wiki| %>
-     <% if(wiki.archived) %> 
+     <% if(wiki.archived == true) %> 
      	<%= wiki.title %> (Archived):
      	<%= select_tag "user_group[wiki_access][#{wiki.id}]", 
             options_for_select(['none', 'read'],
