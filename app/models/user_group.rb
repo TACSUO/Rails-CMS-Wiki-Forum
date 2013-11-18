@@ -31,7 +31,7 @@ class UserGroup < ActiveRecord::Base
     end
   
     def find_all_with_access_to_writable_wiki_or_forum
-      user_groups = find :all, :order => 'name'
+      user_groups = find :all
       writable_groups = user_groups
       user_groups.each do |user_group|
         writable_groups.delete(user_group) unless user_group.hasWritables
