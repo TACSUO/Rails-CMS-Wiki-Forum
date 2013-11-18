@@ -47,9 +47,9 @@ class UserGroup < ActiveRecord::Base
     end
     
     def set_wiki_access_readonly(wiki)
-      user_groups = find_all_with_access_to(wiki)
+      user_groups = find_all_with_access_to wiki
       user_groups.each do |user_group|
-        user_group.set_wiki_readonly(wiki.id)
+        user_group.set_wiki_readonly wiki.id
         user_group.save
       end
     end
