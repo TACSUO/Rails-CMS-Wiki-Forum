@@ -34,7 +34,7 @@ class UserGroup < ActiveRecord::Base
       user_groups = find(:all, :order => "name")
       writable_groups = user_groups
       user_groups.each do |user_group|
-        writable_groups.delete(user_group) if !user_group.hasWritables
+        writable_groups.delete(user_group) unless user_group.hasWritables
       end
       
       return writable_groups
