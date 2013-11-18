@@ -29,7 +29,7 @@
     <td><%= form.password_field :password_confirmation %></td>
   </tr>
 
-  <% user_groups = UserGroup.find(:all, :order => "name") %>
+  <% user_groups = UserGroup.find_all_with_access_to_writable_wiki_or_forum %>
   <% unless user_groups.empty? %>
     <% if is_admin? %>
       <% unless @user.requested_user_group_ids.empty? %>

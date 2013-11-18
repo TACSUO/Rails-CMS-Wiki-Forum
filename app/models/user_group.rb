@@ -29,7 +29,17 @@ class UserGroup < ActiveRecord::Base
         find(:all).select { |ug| ug.forums.keys.include?(wiki_or_forum.id.to_s) }
       end
     end
-
+  
+    def find_all_with_access_to_writable_wiki_or_forum
+      user_groups = find(:all, :order => "name")
+      writable_groups = array()
+      user_groups.each do |user_group|
+        writable_groups << usergroup if user_group.hasWritables
+      end
+      
+      return writable_groups
+    end
+    
     def all_fix_wiki_access
       user_groups = find :all
       user_groups.each do |user_group|
@@ -89,6 +99,24 @@ class UserGroup < ActiveRecord::Base
     self.special[:wikis] = access_hash
   end
   
+  def hasWritables
+    w_ids = special[:wikis].keys
+    w_ids.each do |w_id|
+      if( self.special[:wikis][w_id] == 'write')
+         return true;
+      end
+    end
+    
+    w_ids = special[:forums].keys
+    w_ids.each do |w_id|
+      if( self.special[:forums][w_id] == 'write')
+         return true;
+      end
+    end
+    
+    return false;
+  end
+  
   def set_wiki_readonly(id)
     w_ids = special[:wikis].keys
     w_ids.each do |w_id|
@@ -97,7 +125,7 @@ class UserGroup < ActiveRecord::Base
       end
     end
   end
-  
+
   def fix_wiki_access
     w_ids = special[:wikis].keys
     w_ids.each do |w_id|
