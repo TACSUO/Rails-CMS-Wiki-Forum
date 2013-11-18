@@ -32,9 +32,9 @@ class UserGroup < ActiveRecord::Base
   
     def find_all_with_access_to_writable_wiki_or_forum
       user_groups = find(:all, :order => "name")
-      writable_groups = array()
+      writable_groups = user_groups
       user_groups.each do |user_group|
-        writable_groups << usergroup if user_group.hasWritables
+        writable_groups.delete(user_group) if !user_group.hasWritables
       end
       
       return writable_groups
@@ -107,9 +107,9 @@ class UserGroup < ActiveRecord::Base
       end
     end
     
-    w_ids = special[:forums].keys
-    w_ids.each do |w_id|
-      if( self.special[:forums][w_id] == 'write')
+    f_ids = special[:forums].keys
+    f_ids.each do |f_id|
+      if( self.special[:forums][f_id] == 'write')
          return true;
       end
     end
