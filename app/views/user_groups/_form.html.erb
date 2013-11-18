@@ -16,11 +16,18 @@
   <br/>
 
   <strong>Grants Wiki Access:</strong><br/>
-  <% Wiki.published.each do |wiki| %>
-     <%= wiki.title %>: 
-     <%= select_tag "user_group[wiki_access][#{wiki.id}]", 
+  <% Wiki.all.each do |wiki| %>
+     <%= wiki.title %>:
+     if(wiki.archived) 
+     	<%= select_tag "user_group[wiki_access][#{wiki.id}]", 
+            options_for_select(['none', 'read'],
+            @user_group.grants_access_to_wiki?(wiki)) %>
+     else
+     	<%= select_tag "user_group[wiki_access][#{wiki.id}]", 
             options_for_select(['none', 'write', 'read'],
             @user_group.grants_access_to_wiki?(wiki)) %>
+
+     end
     <br/>
   <% end %>
 
