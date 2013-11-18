@@ -103,25 +103,25 @@ class UserGroup < ActiveRecord::Base
     w_ids = special[:wikis].keys
     w_ids.each do |w_id|
       if( self.special[:wikis][w_id] == 'write')
-         return true;
+         return true
       end
     end
     
     f_ids = special[:forums].keys
     f_ids.each do |f_id|
-      if( self.special[:forums][f_id] == 'write')
-         return true;
+      if(self.special[:forums][f_id] == 'write')
+        return true
       end
     end
     
-    return false;
+    return false
   end
   
   def set_wiki_readonly(id)
     w_ids = special[:wikis].keys
     w_ids.each do |w_id|
       if(id == w_id)
-        self.special[:wikis][w_id] = 'read';
+        self.special[:wikis][w_id] = 'read'
       end
     end
   end
